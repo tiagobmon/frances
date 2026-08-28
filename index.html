@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treino de Francês</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #eef2f7;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+  #app { width: 100%; max-width: 560px; }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    padding: 24px;
+  }
+  h1 { font-size: 1.4rem; margin: 0 0 20px; text-align: center; color: #1e293b; }
+
+  .assunto-btn {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    text-align: left;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .assunto-btn:hover { background: #e2e8f0; }
+  .assunto-btn .count { color: #64748b; font-size: .85rem; }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    font-size: .9rem;
+    color: #475569;
+    margin-bottom: 16px;
+  }
+  .pergunta {
+    font-size: 1.5rem;
+    text-align: center;
+    color: #0f172a;
+    margin: 24px 0;
+  }
+  .dica { text-align: center; color: #94a3b8; font-size: .85rem; margin: -16px 0 20px; }
+
+  .opcao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+    background: #f8fafc;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+  }
+  .opcao:hover:not(:disabled) { background: #e2e8f0; }
+  .opcao:disabled { cursor: default; }
+  .opcao .tecla { color: #94a3b8; font-size: .8rem; margin-right: 10px; }
+  .opcao.correta { background: #dcfce7; border-color: #16a34a; color: #14532d; font-weight: 600; }
+  .opcao.errada { background: #fee2e2; border-color: #dc2626; color: #7f1d1d; }
+  .icone { font-size: 1.1rem; }
+
+  .resultado { text-align: center; }
+  .resultado .nota { font-size: 2rem; font-weight: 700; color: #0f172a; margin: 16px 0; }
+  .resultado .pct { font-size: 1.2rem; color: #475569; }
+  .acoes { display: flex; gap: 10px; justify-content: center; margin-top: 24px; }
+  .acoes button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #btn-repetir { background: #2563eb; color: #fff; }
+  #btn-repetir:hover { background: #1d4ed8; }
+  #btn-menu { background: #e2e8f0; color: #1e293b; }
+  #btn-menu:hover { background: #cbd5e1; }
+
+  .erro { text-align: center; color: #b91c1c; }
+  #ficheiro { display: none; }
+  .picker { text-align: center; }
+  .picker button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="ecra-menu" class="card" hidden>
+    <h1>Treino de Francês</h1>
+    <div id="lista-assuntos"></div>
+  </div>
+
+  <div id="ecra-quiz" class="card" hidden>
+    <div class="topbar">
+      <span id="progresso"></span>
+      <span id="placar"></span>
+    </div>
+    <div id="pergunta" class="pergunta"></div>
+    <div class="dica">Traduz para francês:</div>
+    <div id="opcoes"></div>
+  </div>
+
+  <div id="ecra-fim" class="card resultado" hidden>
+    <h1>Fim!</h1>
+    <div class="nota" id="nota-final"></div>
+    <div class="pct" id="pct-final"></div>
+    <div class="acoes">
+      <button id="btn-repetir">Repetir</button>
+      <button id="btn-menu">Escolher outro assunto</button>
+    </div>
+  </div>
+
+  <div id="ecra-erro" class="card picker" hidden>
+    <h1>Treino de Francês</h1>
+    <p class="erro">Não foi possível ler o data.json diretamente<br>(o navegador bloqueia a leitura de ficheiros locais).</p>
+    <p>Seleciona o ficheiro <strong>data.json</strong>:</p>
+    <button id="btn-escolher">Escolher data.json</button>
+    <input type="file" id="ficheiro" accept=".json,application/json">
+  </div>
+
+</div>
+
+<script>
+let dados = null;
+let assuntoAtual = null;
+let indice = 0;
+let acertos = 0;
+let respondido = false;
+
+const $ = id => document.getElementById(id);
+
+function mostrar(ecra) {
+  for (const id of ['ecra-menu', 'ecra-quiz', 'ecra-fim', 'ecra-erro']) {
+    $(id).hidden = (id !== ecra);
+  }
+}
+
+function baralhar(lista) {
+  const a = [...lista];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+async function carregarDados() {
+  try {
+    const res = await fetch('data.json');
+    if (!res.ok) throw new Error();
+    iniciar(await res.json());
+  } catch {
+    mostrar('ecra-erro');
+  }
+}
+
+function iniciar(json) {
+  dados = json;
+  mostrarMenu();
+}
+
+function mostrarMenu() {
+  const lista = $('lista-assuntos');
+  lista.innerHTML = '';
+  for (const assunto of dados.assuntos) {
+    const btn = document.createElement('button');
+    btn.className = 'assunto-btn';
+    btn.innerHTML = `${assunto.nome} <span class="count">(${assunto.termos.length} palavras)</span>`;
+    btn.addEventListener('click', () => começar(assunto));
+    lista.appendChild(btn);
+  }
+  mostrar('ecra-menu');
+}
+
+function começar(assunto) {
+  assuntoAtual = assunto;
+  indice = 0;
+  acertos = 0;
+  mostrar('ecra-quiz');
+  mostrarPergunta();
+}
+
+function mostrarPergunta() {
+  respondido = false;
+  const termo = assuntoAtual.termos[indice];
+  const total = assuntoAtual.termos.length;
+
+  $('progresso').textContent = `Pergunta ${indice + 1} de ${total}`;
+  $('placar').textContent = `Acertos: ${acertos}`;
+  $('pergunta').textContent = termo.pt;
+
+  const opcoes = [...new Set([termo.fr, ...termo.opcoes_incorretas])];
+  const container = $('opcoes');
+  container.innerHTML = '';
+  baralhar(opcoes).forEach((opcao, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opcao';
+    btn.innerHTML = `<span class="tecla">${i + 1}</span><span class="texto">${opcao}</span><span class="icone"></span>`;
+    btn.addEventListener('click', () => responder(btn, opcao, termo.fr));
+    container.appendChild(btn);
+  });
+}
+
+function responder(btn, escolhida, correta) {
+  if (respondido) return;
+  respondido = true;
+
+  const botoes = [...document.querySelectorAll('.opcao')];
+  botoes.forEach(b => {
+    b.disabled = true;
+    if (b.querySelector('.texto').textContent === correta) {
+      b.classList.add('correta');
+      b.querySelector('.icone').textContent = '✓';
+    }
+  });
+
+  if (escolhida === correta) {
+    acertos++;
+  } else {
+    btn.classList.add('errada');
+    btn.querySelector('.icone').textContent = '✗';
+  }
+  $('placar').textContent = `Acertos: ${acertos}`;
+
+  setTimeout(() => {
+    indice++;
+    if (indice >= assuntoAtual.termos.length) {
+      mostrarFim();
+    } else {
+      mostrarPergunta();
+    }
+  }, 1000);
+}
+
+function mostrarFim() {
+  const total = assuntoAtual.termos.length;
+  const pct = Math.round((acertos / total) * 100);
+  $('nota-final').textContent = `${acertos} de ${total}`;
+  $('pct-final').textContent = `${pct}% de acerto`;
+  mostrar('ecra-fim');
+}
+
+document.addEventListener('keydown', e => {
+  if ($('ecra-quiz').hidden || respondido) return;
+  const n = parseInt(e.key, 10);
+  if (n >= 1 && n <= 4) {
+    const btn = document.querySelectorAll('.opcao')[n - 1];
+    if (btn) btn.click();
+  }
+});
+
+$('btn-repetir').addEventListener('click', () => começar(assuntoAtual));
+$('btn-menu').addEventListener('click', mostrarMenu);
+
+$('btn-escolher').addEventListener('click', () => $('ficheiro').click());
+$('ficheiro').addEventListener('change', e => {
+  const ficheiro = e.target.files[0];
+  if (!ficheiro) return;
+  const leitor = new FileReader();
+  leitor.onload = () => {
+    try {
+      iniciar(JSON.parse(leitor.result));
+    } catch {
+      alert('Ficheiro JSON inválido.');
+    }
+  };
+  leitor.readAsText(ficheiro);
+});
+
+carregarDados();
+</script>
+</body>
+</html>

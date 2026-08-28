@@ -1,0 +1,213 @@
+{
+  "assuntos": [
+    {
+      "nome": "Verbos irregulares",
+      "termos": [
+        {
+          "pt": "Eu sou",
+          "fr": "Je suis",
+          "opcoes_incorretas": ["Je suit", "Je es", "Je étais"]
+        },
+        {
+          "pt": "Tu és",
+          "fr": "Tu es",
+          "opcoes_incorretas": ["Tu est", "Tu suis", "Tu étais"]
+        },
+        {
+          "pt": "Ele é",
+          "fr": "Il est",
+          "opcoes_incorretas": ["Il es", "Il suis", "Il était"]
+        },
+        {
+          "pt": "Nós somos",
+          "fr": "Nous sommes",
+          "opcoes_incorretas": ["Nous sont", "Nous sommes", "Nous étions"]
+        },
+        {
+          "pt": "Eu era",
+          "fr": "J'étais",
+          "opcoes_incorretas": ["Je étais", "Je suis", "J'était"]
+        },
+        {
+          "pt": "Tu eras",
+          "fr": "Tu étais",
+          "opcoes_incorretas": ["Tu était", "Tu es", "Tu étais"]
+        },
+        {
+          "pt": "Ele era",
+          "fr": "Il était",
+          "opcoes_incorretas": ["Il étais", "Il est", "Il était"]
+        },
+        {
+          "pt": "Nós éramos",
+          "fr": "Nous étions",
+          "opcoes_incorretas": ["Nous était", "Nous sommes", "Nous étiez"]
+        },
+
+        {
+          "pt": "Eu tenho",
+          "fr": "J'ai",
+          "opcoes_incorretas": ["Je ai", "J'est", "J'avais"]
+        },
+        {
+          "pt": "Tu tens",
+          "fr": "Tu as",
+          "opcoes_incorretas": ["Tu a", "Tu es", "Tu avais"]
+        },
+        {
+          "pt": "Ele tem",
+          "fr": "Il a",
+          "opcoes_incorretas": ["Il as", "Il est", "Il avait"]
+        },
+        {
+          "pt": "Nós temos",
+          "fr": "Nous avons",
+          "opcoes_incorretas": ["Nous avez", "Nous ont", "Nous avions"]
+        },
+        {
+          "pt": "Eu tinha",
+          "fr": "J'avais",
+          "opcoes_incorretas": ["Je avais", "J'ai", "J'avait"]
+        },
+        {
+          "pt": "Tu tinhas",
+          "fr": "Tu avais",
+          "opcoes_incorretas": ["Tu avait", "Tu as", "Tu avaient"]
+        },
+        {
+          "pt": "Ele tinha",
+          "fr": "Il avait",
+          "opcoes_incorretas": ["Il avais", "Il a", "Il avaient"]
+        },
+        {
+          "pt": "Nós tínhamos",
+          "fr": "Nous avions",
+          "opcoes_incorretas": ["Nous avait", "Nous avons", "Nous aviez"]
+        },
+
+        {
+          "pt": "Eu vou",
+          "fr": "Je vais",
+          "opcoes_incorretas": ["Je va", "Je vas", "J'allais"]
+        },
+        {
+          "pt": "Tu vais",
+          "fr": "Tu vas",
+          "opcoes_incorretas": ["Tu va", "Tu vais", "Tu allais"]
+        },
+        {
+          "pt": "Ele vai",
+          "fr": "Il va",
+          "opcoes_incorretas": ["Il vas", "Il vais", "Il allait"]
+        },
+        {
+          "pt": "Nós vamos",
+          "fr": "Nous allons",
+          "opcoes_incorretas": ["Nous allez", "Nous vont", "Nous allions"]
+        },
+        {
+          "pt": "Eu ia",
+          "fr": "J'allais",
+          "opcoes_incorretas": ["Je allais", "Je vais", "J'allait"]
+        },
+        {
+          "pt": "Tu ias",
+          "fr": "Tu allais",
+          "opcoes_incorretas": ["Tu allait", "Tu vas", "Tu alliez"]
+        },
+        {
+          "pt": "Ele ia",
+          "fr": "Il allait",
+          "opcoes_incorretas": ["Il allais", "Il va", "Il allaient"]
+        },
+        {
+          "pt": "Nós íamos",
+          "fr": "Nous allions",
+          "opcoes_incorretas": ["Nous allait", "Nous allons", "Nous alliez"]
+        },
+
+        {
+          "pt": "Eu faço",
+          "fr": "Je fais",
+          "opcoes_incorretas": ["Je fait", "Je faisais", "Je font"]
+        },
+        {
+          "pt": "Tu fazes",
+          "fr": "Tu fais",
+          "opcoes_incorretas": ["Tu fait", "Tu faisais", "Tu font"]
+        },
+        {
+          "pt": "Ele faz",
+          "fr": "Il fait",
+          "opcoes_incorretas": ["Il fais", "Il font", "Il faisait"]
+        },
+        {
+          "pt": "Nós fazemos",
+          "fr": "Nous faisons",
+          "opcoes_incorretas": ["Nous faisez", "Nous font", "Nous faisions"]
+        },
+        {
+          "pt": "Eu fazia",
+          "fr": "Je faisais",
+          "opcoes_incorretas": ["Je faisait", "Je fais", "Je faisaient"]
+        },
+        {
+          "pt": "Tu fazias",
+          "fr": "Tu faisais",
+          "opcoes_incorretas": ["Tu faisait", "Tu fais", "Tu faisaient"]
+        },
+        {
+          "pt": "Ele fazia",
+          "fr": "Il faisait",
+          "opcoes_incorretas": ["Il faisais", "Il fait", "Il faisaient"]
+        },
+        {
+          "pt": "Nós fazíamos",
+          "fr": "Nous faisions",
+          "opcoes_incorretas": ["Nous faisait", "Nous faisons", "Nous faisiez"]
+        },
+
+        {
+          "pt": "Eu venho",
+          "fr": "Je viens",
+          "opcoes_incorretas": ["Je vient", "Je venons", "Je venais"]
+        },
+        {
+          "pt": "Tu vens",
+          "fr": "Tu viens",
+          "opcoes_incorretas": ["Tu vient", "Tu venons", "Tu venais"]
+        },
+        {
+          "pt": "Ele vem",
+          "fr": "Il vient",
+          "opcoes_incorretas": ["Il viens", "Il venons", "Il venait"]
+        },
+        {
+          "pt": "Nós vimos",
+          "fr": "Nous venons",
+          "opcoes_incorretas": ["Nous venez", "Nous viennent", "Nous venions"]
+        },
+        {
+          "pt": "Eu vinha",
+          "fr": "Je venais",
+          "opcoes_incorretas": ["Je venait", "Je viens", "Je venaient"]
+        },
+        {
+          "pt": "Tu vinhas",
+          "fr": "Tu venais",
+          "opcoes_incorretas": ["Tu venait", "Tu viens", "Tu venaient"]
+        },
+        {
+          "pt": "Ele vinha",
+          "fr": "Il venait",
+          "opcoes_incorretas": ["Il venais", "Il vient", "Il venaient"]
+        },
+        {
+          "pt": "Nós vínhamos",
+          "fr": "Nous venions",
+          "opcoes_incorretas": ["Nous venait", "Nous venons", "Nous veniez"]
+        }
+      ]
+    }
+  ]
+}
