@@ -146,6 +146,7 @@
 <script>
 let dados = null;
 let assuntoAtual = null;
+let termosSessao = [];
 let indice = 0;
 let acertos = 0;
 let respondido = false;
@@ -197,6 +198,7 @@ function mostrarMenu() {
 
 function começar(assunto) {
   assuntoAtual = assunto;
+  termosSessao = baralhar(assunto.termos).slice(0, 30);
   indice = 0;
   acertos = 0;
   mostrar('ecra-quiz');
@@ -205,8 +207,8 @@ function começar(assunto) {
 
 function mostrarPergunta() {
   respondido = false;
-  const termo = assuntoAtual.termos[indice];
-  const total = assuntoAtual.termos.length;
+  const termo = termosSessao[indice];
+  const total = termosSessao.length;
 
   $('progresso').textContent = `Pergunta ${indice + 1} de ${total}`;
   $('placar').textContent = `Acertos: ${acertos}`;
@@ -256,7 +258,7 @@ function responder(btn, escolhida, correta) {
 }
 
 function mostrarFim() {
-  const total = assuntoAtual.termos.length;
+  const total = termosSessao.length;
   const pct = Math.round((acertos / total) * 100);
   $('nota-final').textContent = `${acertos} de ${total}`;
   $('pct-final').textContent = `${pct}% de acerto`;
