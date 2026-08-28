@@ -249,7 +249,7 @@ function responder(btn, escolhida, correta) {
 
   setTimeout(() => {
     indice++;
-    if (indice >= assuntoAtual.termos.length) {
+    if (indice >= termosSessao.length) {
       mostrarFim();
     } else {
       mostrarPergunta();
